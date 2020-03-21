@@ -3,6 +3,7 @@
 namespace RafflePrizes\controllers;
 
 use RafflePrizes\exceptions\NotFoundHttpException;
+use RafflePrizes\interfaces\services\userService\UserServiceInterface;
 
 class PagesController extends BaseController
 {
