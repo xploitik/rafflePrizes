@@ -8,13 +8,22 @@ use Phalcon\Session\Adapter\Files as PhalconSession;
 use RafflePrizes\infrastructure\session\Session;
 use RafflePrizes\interfaces\infrastructure\session\SessionInterface;
 use RafflePrizes\interfaces\services\authService\AuthServiceInterface;
+use RafflePrizes\interfaces\services\deliveryService\DeliveryServiceInterface;
+use RafflePrizes\interfaces\services\raffleService\RaffleServiceInterface;
 use RafflePrizes\interfaces\services\userService\UserRepositoryInterface;
 use RafflePrizes\interfaces\services\userService\UserServiceInterface;
+use RafflePrizes\interfaces\services\thingsService\ThingsServiceInterface;
 use RafflePrizes\routes\RouterBuilder;
 use RafflePrizes\plugins\SecurityPlugin;
 use RafflePrizes\services\authService\AuthService;
+use RafflePrizes\services\deliveryService\DeliveryService;
+use RafflePrizes\services\raffleService\factory\LoyaltyPrizeFactory;
+use RafflePrizes\services\raffleService\factory\MoneyPrizeFactory;
+use RafflePrizes\services\raffleService\factory\PhysicalPrizeFactory;
+use RafflePrizes\services\raffleService\RaffleService;
 use RafflePrizes\services\userService\repository\UserRepository;
 use RafflePrizes\services\userService\UserService;
+use RafflePrizes\services\thingsService\ThingsService;
 
 /** @var \Phalcon\DiInterface $di */
 
@@ -78,4 +87,43 @@ $di->set(UserRepositoryInterface::class, function () {
 $di->set(AuthServiceInterface::class, function () use ($di) {
     return new AuthService($di->get(SessionInterface::class), $di->get(UserServiceInterface::class));
 });
+
+$di->set(DeliveryServiceInterface::class, function () use ($di) {
+    return new DeliveryService();
+});
+
+$di->set(ThingsServiceInterface::class, function () use ($di) {
+    return new ThingsService();
+});
+
+$di->set(RaffleServiceInterface::class, function () use ($di) {
+
+    $options = $di->get('config');
+    $restrictions = $options['raffle']['restrictions'];
+    $settings = $options['raffle']['settings'];
+
+    $factories = [];
+    $factories[] = new MoneyPrizeFactory(
+        $di->get(UserServiceInterface::class),
+        $restrictions['money']['min'],
+        $restrictions['money']['max']
+    );
+    $factories[] = new LoyaltyPrizeFactory(
+        $di->get(UserServiceInterface::class),
+        $restrictions['loyalty']['min'],
+        $restrictions['loyalty']['max'],
+        $settings['loyalty']['source']
+    );
+
+    /** @var ThingsServiceInterface $thingsService */
+    $thingsService = $di->get(ThingsServiceInterface::class);
+    $factories[] = new PhysicalPrizeFactory(
+        $di->get(DeliveryServiceInterface::class),
+        $thingsService->getAll()
+    );
+
+    return new RaffleService($factories);
+});
+
+
 

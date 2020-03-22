@@ -8,4 +8,21 @@ return [
         "dbname" => "test_marsel",
         "port" => "3306",
     ],
+    'raffle' => [
+        'restrictions' => [
+            'money' => [
+                'min' => 10,
+                'max' => 1000,
+            ],
+            'loyalty' => [
+                'min' => 50,
+                'max' => 200,
+            ],
+        ],
+        'settings' => [
+            'loyalty' => [
+                'source' => 'raffle',
+            ],
+        ],
+    ]
 ];

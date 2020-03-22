@@ -2,6 +2,8 @@
 
 namespace RafflePrizes\interfaces\services\authService;
 
+use RafflePrizes\interfaces\services\userService\model\UserInterface;
+
 interface AuthServiceInterface
 {
     /**
@@ -20,4 +22,9 @@ interface AuthServiceInterface
      * @return bool
      */
     public function logout(): bool;
+
+    /**
+     * @return null|UserInterface
+     */
+    public function getCurrentUser(): ?UserInterface;
 }

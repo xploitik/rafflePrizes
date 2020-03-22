@@ -45,10 +45,15 @@ class UserRepository implements UserRepositoryInterface
         return $this->createModel($user->toArray());
     }
 
-    public function save(UserInterface $user): bool
+    /**
+     * @param UserInterface $user
+     * @param array $data
+     * @return bool
+     */
+    public function save(UserInterface $user, array $data = []): bool
     {
         /** @var User $user */
-        if ($user->save()) {
+        if ($user->save($data)) {
             $user->refresh();
             return true;
         }

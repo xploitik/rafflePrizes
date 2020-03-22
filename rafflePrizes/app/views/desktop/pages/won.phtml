@@ -1,0 +1,12 @@
+<?php
+
+use RafflePrizes\interfaces\services\raffleService\model\WinnableInterface;
+use RafflePrizes\routes\AuthRoute;
+
+/**
+ * @var WinnableInterface $prize
+ */
+?>
+
+<div class="">Вы выиграли <?= $prize->getName(); ?></div>
+<a href="<?= AuthRoute::ROUTE_REGISTER ?>">Вернуться на главную</a>

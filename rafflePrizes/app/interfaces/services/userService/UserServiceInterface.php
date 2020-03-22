@@ -21,4 +21,18 @@ interface UserServiceInterface
      * @return bool
      */
     public function add(array $data): bool;
+
+    /**
+     * @param model\UserInterface $user
+     * @param int $loyalty
+     * @return bool
+     */
+    public function setLoyalty(model\UserInterface $user, int $loyalty): bool;
+
+    /**
+     * @param model\UserInterface $user
+     * @param int $balance
+     * @return bool
+     */
+    public function setBalance(model\UserInterface $user, int $balance): bool;
 }

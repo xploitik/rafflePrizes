@@ -29,6 +29,9 @@ class User extends Model implements UserInterface
     /** @var string */
     protected $password;
 
+    /** @var string */
+    protected $address;
+
     public function initialize()
     {
         $this->setSource('users');
@@ -80,5 +83,13 @@ class User extends Model implements UserInterface
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress(): string
+    {
+        return $this->address;
     }
 }

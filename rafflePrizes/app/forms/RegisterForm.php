@@ -41,5 +41,14 @@ class RegisterForm extends Form
                 ])
             ])
         );
+
+        $this->add(
+            (new Text('address'))->addValidators([
+                new StringLength([
+                    'min' => 3,
+                    'messageMinimum' => 'Адрес минимум 3 символа',
+                ])
+            ])
+        );
     }
 }

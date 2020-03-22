@@ -26,7 +26,8 @@ interface UserRepositoryInterface
 
     /**
      * @param UserInterface $user
+     * @param array $data
      * @return bool
      */
-    public function save(UserInterface $user): bool;
+    public function save(UserInterface $user, array $data = []): bool;
 }

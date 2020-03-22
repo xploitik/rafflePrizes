@@ -33,4 +33,9 @@ interface UserInterface
      * @return string
      */
     public function getPassword(): string;
+
+    /**
+     * @return string
+     */
+    public function getAddress(): string;
 }

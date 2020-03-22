@@ -4,6 +4,7 @@ namespace RafflePrizes\services\authService;
 
 use RafflePrizes\interfaces\infrastructure\session\SessionInterface;
 use RafflePrizes\interfaces\services\authService\AuthServiceInterface;
+use RafflePrizes\interfaces\services\userService\model\UserInterface;
 use RafflePrizes\interfaces\services\userService\UserServiceInterface;
 use RafflePrizes\utils\SecurityHelper;
 
@@ -67,5 +68,18 @@ class AuthService implements AuthServiceInterface
     public function logout(): bool
     {
         return $this->sessionService->delete(self::USER_SESSION__NAME);
+    }
+
+    /**
+     * @return null|UserInterface
+     */
+    public function getCurrentUser(): ?UserInterface
+    {
+        $userRaw = $this->sessionService->get(self::USER_SESSION__NAME);
+        if (empty($userRaw['id'])) {
+            return null;
+        }
+
+        return $this->userService->getById($userRaw['id']);
     }
 }

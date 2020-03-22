@@ -59,6 +59,26 @@ class UserService implements UserServiceInterface
     }
 
     /**
+     * @param UserInterface $user
+     * @param int $loyalty
+     * @return bool
+     */
+    public function setLoyalty(UserInterface $user, int $loyalty): bool
+    {
+        return $this->userRepository->save($user, ['loyalty' => $loyalty]);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param int $balance
+     * @return bool
+     */
+    public function setBalance(UserInterface $user, int $balance): bool
+    {
+        return $this->userRepository->save($user, ['balance' => $balance]);
+    }
+
+    /**
      * @param array $data
      * @return bool
      * @throws UserServiceAddException

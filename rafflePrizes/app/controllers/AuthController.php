@@ -73,16 +73,20 @@ class AuthController extends BaseController
             exit();
         }
 
+        /** @var UserServiceInterface $userService */
         $userService = $this->di->get(UserServiceInterface::class);
 
         try {
             $form = new RegisterForm();
             if ($this->request->isPost()) {
                 if ($form->isValid($this->request->getPost())) {
+
+                    //TODO: DTO
                     $registerData = [
                         'name' => $this->request->getPost('name', 'string'),
                         'email' => $this->request->getPost('email', 'email'),
                         'password' => $this->request->getPost('password'),
+                        'address' => $this->request->getPost('address', 'string'),
                     ];
 
                     if ($userService->add($registerData)) {
