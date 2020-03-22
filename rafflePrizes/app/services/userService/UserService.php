@@ -44,6 +44,7 @@ class UserService implements UserServiceInterface
     /**
      * @param array $data
      * @return bool
+     * TODO: переделать передачу параметров в DTO
      */
     public function add(array $data): bool
     {
