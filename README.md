@@ -24,9 +24,12 @@
 vendor/db/migrations/20200320121749_create_user_table.php
 
 **Структура проекта:**
-точка входа - rafflePrizes/public/index.php, 
-Однако весь основной код в папке rafflePrizes/app
+
+точка входа - rafflePrizes/public/index.php,
+однако весь основной код в папке rafflePrizes/app.
+
 в файле rafflePrizes/app/config/bootstrap.php идет инициализация ди-контейнера с настройкой всех сервисов.
+
 в файле rafflePrizes/app/config/params.php настройки
 
 в папке rafflePrizes/app/routes - расположены роуты. Все роуты собираются в файле rafflePrizes/app/routes/RouterBuilder.php
